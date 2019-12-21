@@ -8,10 +8,10 @@ import {
 
 // css
 import 'bulma/css/bulma.css'
+import 'react-toastify/dist/ReactToastify.css'
 import './App.css'
 
 // Components
-
 import Layout from './components/layout'
 
 // Pages
