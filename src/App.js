@@ -10,6 +10,10 @@ import {
 import 'bulma/css/bulma.css'
 import './App.css'
 
+// Components
+
+import Layout from './components/layout'
+
 // Pages
 import Login from './pages/login'
 import Home from './pages/home'
@@ -33,24 +37,25 @@ class App extends Component {
   }
 
   render () {
-    return (<div className="container">
-      <div className="section">
+    return (
         <Router>
-          <Switch>
-            <Route
-              path='/'
-              exact
-              component={Login}
-            />
-            <Route
-              path='/home'
-              exact
-              component={Home}
-            />
-          </Switch>
+          <Layout>
+            <Switch>
+              <Route
+                path='/'
+                exact
+                component={Login}
+              />
+              <Route
+                path='/home'
+                exact
+                component={Home}
+              />
+            </Switch>
+          </Layout>
+
         </Router>
-      </div>
-    </div>)
+    )
   }
 }
 
