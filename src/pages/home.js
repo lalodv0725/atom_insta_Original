@@ -8,8 +8,32 @@ class Home extends Component {
     super(props)
     this.state = {
       image: null,
-      progressUpload: 0
+      progressUpload: 0,
+      posts: []
     }
+  }
+
+  componentDidMount = () => {
+    let postsRef = firebase.database().ref('posts')
+
+    postsRef.on('value', (snapshot) => {
+
+      let posts = snapshot.val()
+      let newPosts = []
+
+      for (let post in posts) {
+        newPosts.push({
+          id: post,
+          content: posts[post].content,
+          photoUrl: posts[post].photoUrl,
+        })
+      }
+
+      this.setState({
+        posts: newPosts
+      })
+
+    })
   }
 
   handleChange = (e) => {
@@ -41,7 +65,7 @@ class Home extends Component {
     }, () => {
 
       task.snapshot.ref.getDownloadURL().then((url) => {
-
+        console.log(url)
         toast.success("¡Carga completada!", {
           position: toast.POSITION.TOP_RIGHT
         })
@@ -57,21 +81,38 @@ class Home extends Component {
     })
   }
 
+
+  addPost = () => {
+    let posts = firebase.database().ref('posts')
+    let newPost = posts.push()
+
+    newPost.set({
+      content: `Hola ${new Date().toDateString()}`,
+      photoUrl: 'https://firebasestorage.googleapis.com/v0/b/atom-insta10.appspot.com/o/photos%2FSat%20Dec%2021%202019-Captura%20de%20pantalla%20de%202019-11-26%2017-15-27.png?alt=media&token=6ea7f86a-2701-46d4-9326-e2be0e4ab179',
+      createdAt: new Date().toJSON()
+    })
+  }
+
   render() {
     let {
       image,
-      progressUpload
+      progressUpload,
+      posts
     } = this.state
 
     return (
       <div>
         Welcome
-
         <LoadingBar
           progress={progressUpload}
           color="orange"
           onLoaderFinished={this.restartProgressBar}
         />
+        <button
+          onClick={this.addPost}
+        >
+          New post
+        </button>
 
         <div className="file has-name">
           <label className="file-label">
@@ -96,8 +137,17 @@ class Home extends Component {
 
             </label>
           </div>
-
-  
+          <div className="columns is-multiline">
+            {
+              posts.map(l => {
+                return (
+                  <div key={l.id} className="column is-4">
+                    <img src={l.photoUrl} />
+                  </div>
+                )
+              })
+            }
+          </div>
       </div>
     );
   }

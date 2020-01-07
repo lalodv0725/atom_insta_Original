@@ -20,7 +20,7 @@ import Home from './pages/home'
 
 // Setup firebase
 let firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: "AIzaSyChV8AOnUPkfGj1FFpVjIhnb8jT7byyFAc",
   authDomain: "atom-insta10.firebaseapp.com",
   databaseURL: "https://atom-insta10.firebaseio.com",
   projectId: "atom-insta10",
