@@ -28,13 +28,6 @@ const Modal = ({
             children
           }
         </section>
-
-        {/* FOOTER */}
-        <footer className="modal-card-foot">
-          {
-            buttonsFooter
-          }
-        </footer>
       </div>
     </div>
   )

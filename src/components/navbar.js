@@ -21,7 +21,7 @@ class Navbar extends Component {
       collapsed
     } = this.state
 
-    return (<nav className="navbar is-dark" role="navigation" aria-label="main navigation">
+    return (<nav className="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <Link
           className="navbar-item"

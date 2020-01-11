@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 import LoadingBar  from 'react-top-loading-bar'
 import { toast } from 'react-toastify'
+import Card from '../components/card'
 
 class Home extends Component {
   constructor (props) {
@@ -14,7 +15,7 @@ class Home extends Component {
   }
 
   componentDidMount = () => {
-    let postsRef = firebase.database().ref('posts')
+    let postsRef = firebase.database().ref('posts').orderByChild("authorId").equalTo("si")
 
     postsRef.on('value', (snapshot) => {
 
@@ -26,14 +27,36 @@ class Home extends Component {
           id: post,
           content: posts[post].content,
           photoUrl: posts[post].photoUrl,
+          authorId: posts[post].authorId,
+          createdAt: posts[post].createdAt,
         })
       }
 
       this.setState({
-        posts: newPosts
+        posts: newPosts.reverse()
       })
 
     })
+  }
+
+  getUserById = (post) => {
+    // console.log("2")
+
+    // let userRef = firebase.database().ref(`users/${post.authorId}`)
+    // userRef.on('value', (snapshot) => {
+    //   console.log("3")
+    //   post.author = snapshot.val()
+    // })
+
+    firebase.database().ref(`users/${post.authorId}`).once('value').then(function (snapshotUser) {
+      console.log(snapshotUser.val())
+      post.author = snapshotUser.val();
+
+      // allTicketEmailsFromUsers = allTicketEmailsFromUsers + ", " + name;
+
+      // console.log(allTicketEmailsFromUsers);
+    });
+
   }
 
   handleChange = (e) => {
@@ -108,46 +131,20 @@ class Home extends Component {
           color="orange"
           onLoaderFinished={this.restartProgressBar}
         />
-        <button
-          onClick={this.addPost}
-        >
-          New post
-        </button>
 
-        <div className="file has-name">
-          <label className="file-label">
-            <input
-              onChange={this.handleChange}
-              className="file-input"
-              type="file" name="resume"
-            />
-              <span className="file-cta">
-                <span className="file-icon">
-                  <i className="fa fa-upload"></i>
-                </span>
-                <span className="file-label">
-                  Selecciona una foto
-              </span>
-              </span>
-              {
-              image ? (<span className="file-name">
-                {image.name}
-              </span>) : null
-              }
 
-            </label>
-          </div>
-          <div className="columns is-multiline">
-            {
-              posts.map(l => {
-                return (
-                  <div key={l.id} className="column is-4">
-                    <img src={l.photoUrl} />
-                  </div>
-                )
-              })
-            }
-          </div>
+        {
+          posts.map(l => {
+            return (
+
+
+                <Card post={l} />
+
+            )
+          })
+        }
+
+        
       </div>
     );
   }
