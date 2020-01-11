@@ -4,7 +4,6 @@ const Modal = ({
   children,
   className,
   onClose,
-  buttonsFooter,
   title
 }) => {
   return (

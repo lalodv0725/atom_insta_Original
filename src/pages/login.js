@@ -14,7 +14,7 @@ class Login extends Component {
       let data = await firebase.auth().getRedirectResult()
 
       if (data.credential) {
-        console.log('data', data.user)
+        
         let user = firebase.database().ref(`users/${data.user.uid}`)
 
         user.set({
