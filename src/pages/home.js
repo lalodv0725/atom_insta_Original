@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import firebase from 'firebase'
 // import Card from '../components/card'
 import Post from '../components/post'
+import PostCard from '../components/post-card'
 
 class Home extends Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Home extends Component {
         newPosts.push({
           id: post,
           content: posts[post].content,
-          photoUrl: posts[post].photoUrl,
+          photoURL: posts[post].photoURL,
           authorId: posts[post].authorId,
           createdAt: posts[post].createdAt,
         })
@@ -46,30 +47,14 @@ class Home extends Component {
       <div>
         Welcome
         <Post />
-
         {
           posts.map((p, i) => {
-            return <div>
-              {
-                p.content
-              }
-              </div>
+            return (<PostCard
+                      post={p}
+                      key={i}
+                    />)
           })
         }
-
-{/* 
-        {
-          posts.map(l => {
-            return (
-
-
-              <Card post={l} />
-
-            )
-          })
-        } */}
-
-
       </div>
     );
   }

@@ -72,8 +72,7 @@ class Post extends Component {
       formData: { image }
     } = this.state
 
-    // let name = `${uuid()}-${image.name}`
-    let name = `${new Date().toDateString()}-${image.name}`
+    let name = `${uuid()}-${image.name}`
 
     let refStorage = firebase.storage().ref(`/photos/${name}`)
 
@@ -111,7 +110,7 @@ class Post extends Component {
 
     newPost.set({
       content,
-      photoUrl: url,
+      photoURL: url,
       authorId: '3qODBBirJeXb0FZaM6auSPSWJgo2',
       createdAt: new Date().toJSON()
     })
