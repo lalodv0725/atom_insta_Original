@@ -14,7 +14,9 @@ class Home extends Component {
 
   componentDidMount = () => {
     let postsRef = firebase.database().ref('posts')
-    //.orderByChild("authorId").equalTo("si")
+
+    //.orderByChild("authorId").equalTo("vjdsnd")
+    
 
     postsRef.on('value', (snapshot) => {
 
@@ -47,14 +49,22 @@ class Home extends Component {
       <div>
         Welcome
         <Post />
-        {
-          posts.map((p, i) => {
-            return (<PostCard
-                      post={p}
-                      key={i}
-                    />)
-          })
-        }
+        <div className="columns">
+
+          <div
+            className="column is-half is-offset-one-quarter">
+            {
+              posts.map((p, i) => {
+                return (<PostCard
+                  post={p}
+                  key={i}
+                />)
+              })
+            }
+          </div>
+
+        </div>
+
       </div>
     );
   }

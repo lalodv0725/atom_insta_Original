@@ -95,6 +95,7 @@ class Post extends Component {
       })
     }, () => {
       task.snapshot.ref.getDownloadURL().then((url) => {
+        console.log('url', url)
         this.handleCreatePost(url)
       })
     })

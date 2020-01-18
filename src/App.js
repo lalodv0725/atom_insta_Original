@@ -17,7 +17,7 @@ import Layout from './components/layout'
 // Pages
 import Login from './pages/login'
 import Home from './pages/home'
-import Detail from './pages/detail'
+import PostDetail from './pages/post-detail'
 
 // Setup firebase
 let firebaseConfig = {
@@ -53,9 +53,8 @@ class App extends Component {
                 component={Home}
               />
               <Route
-                path='/post/:id'
-                exact
-              component={Detail}
+                path='/posts/:id'
+                component={PostDetail}
               />
             </Switch>
           </Layout>

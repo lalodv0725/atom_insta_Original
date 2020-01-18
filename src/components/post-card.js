@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
+import { Link } from 'react-router-dom'
+import { read } from 'fs'
 
 class PostCard extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     this.state = {
       author: null,
-      loading: true
+      loading: true,
+      comment: ''
     }
   }
 
@@ -29,14 +32,53 @@ class PostCard extends Component {
     })
   }
 
-  render () {
+  handleChange = (e) => {
     let {
+      target
+    } = e
+    this.setState({
+      comment: target.value
+    })
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault()
+
+    const {
+      comment
+    } = this.state
+
+    const {
       post
+    } = this.props
+
+    if (comment) {
+      let comments = firebase.database().ref(`postsComments/${post.id}`)
+
+      let refComment = comments.push()
+
+      refComment.set({
+        content: comment,
+        userId: '3qODBBirJeXb0FZaM6auSPSWJgo2',
+        createdAt: new Date().toJSON()
+      })
+
+      this.setState({
+        comment: ''
+      })
+    }
+  }
+
+  render() {
+    let {
+      post,
+      readOnly
     } = this.props
 
     let {
       loading,
-      author
+      author,
+      comment
     } = this.state
 
     if (loading) {
@@ -61,12 +103,20 @@ class PostCard extends Component {
             </div>
 
             <div className="media-content">
-              <p class="title is-4">{author.displayName}</p>
-              <p class="subtitle is-6">@johnsmith</p>
+              <p className="title is-4">{author.displayName}</p>
+              <p className="subtitle is-6">@johnsmith</p>
             </div>
 
           </div>
         </div>
+
+        {
+          !readOnly && (<div className="card-header-icon">
+            <Link to={`/posts/${post.id}`}>
+              Ver post
+          </Link>
+          </div>)
+        }
       </div>
 
       <div className="card-image">
@@ -75,6 +125,31 @@ class PostCard extends Component {
         </figure>
       </div>
 
+      {
+        !readOnly && (<div className="card-footer">
+          <form
+            onSubmit={this.handleSubmit}
+            className="card-footer-item"
+          >
+            <div className="field is-grouped fields-comments">
+              <p className="control is-expanded">
+                <input
+                  value={comment}
+                  className="input"
+                  onChange={this.handleChange}
+                  placeholder="Escribe un comentario"
+                />  </p>
+              <p className="control">
+                <button
+                  className="button is-info">
+                  Enviar
+                </button>
+              </p>
+            </div>
+
+          </form>
+        </div>)
+      }
     </div>)
   }
 }

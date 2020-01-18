@@ -6,10 +6,16 @@
   font-weight: normal;
 }
 
-/* .modal-content {
-  
-} */
+.card {
+  margin: 3rem 0;
+}
 
-.modal-card {
-    width: 50rem;
-  }
+.is-vertical-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fields-comments {
+  width: 100% !important;
+}
