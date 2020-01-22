@@ -1,10 +1,15 @@
 import React, { Component } from 'react'
-import firebase from 'firebase'
+import firebase, { storage } from 'firebase'
 import {
   BrowserRouter as Router, // Enrutador
   Switch, // navegación entre rutas
   Route, // ruta
 } from 'react-router-dom'
+
+// baobab
+
+import { root } from 'baobab-react/higher-order'
+import store from './tree'
 
 // css
 import 'bulma/css/bulma.css'
@@ -64,4 +69,6 @@ class App extends Component {
   }
 }
 
-export default App;
+const RootedApp = root(store, App)
+
+export default RootedApp;

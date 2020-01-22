@@ -9,6 +9,8 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.1.2",
+    "baobab": "^2.5.3",
+    "baobab-react": "^4.0.0",
     "bulma": "^0.8.0",
     "firebase": "^7.6.0",
     "moment": "^2.24.0",
