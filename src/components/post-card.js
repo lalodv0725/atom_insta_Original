@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
 import { Link } from 'react-router-dom'
-import { read } from 'fs'
+import tree from '../tree'
 
 class PostCard extends Component {
   constructor(props) {
     super(props)
     this.state = {
       author: null,
+      user: tree.get("user"),
       loading: true,
-      comment: ''
+      comment: '',
+      placeholder: 'Escribe un comentario',
+      disabled: false
     }
   }
 
@@ -45,7 +48,8 @@ class PostCard extends Component {
     e.preventDefault()
 
     const {
-      comment
+      comment,
+      user
     } = this.state
 
     const {
@@ -53,18 +57,31 @@ class PostCard extends Component {
     } = this.props
 
     if (comment) {
+
+      this.setState({
+        disabled: true
+      })
+
       let comments = firebase.database().ref(`postsComments/${post.id}`)
 
       let refComment = comments.push()
 
       refComment.set({
         content: comment,
-        userId: '3qODBBirJeXb0FZaM6auSPSWJgo2',
+        userId: user.id,
         createdAt: new Date().toJSON()
       })
 
       this.setState({
-        comment: ''
+        comment: '',
+        placeholder: 'Comentario enviado',
+      }, () => {
+        setTimeout(() => {
+          this.setState({
+            placeholder: 'Escribe un comentario',
+            disabled: false
+          })
+        }, 2000)
       })
     }
   }
@@ -78,7 +95,9 @@ class PostCard extends Component {
     let {
       loading,
       author,
-      comment
+      comment,
+      placeholder,
+      disabled
     } = this.state
 
     if (loading) {
@@ -125,31 +144,32 @@ class PostCard extends Component {
         </figure>
       </div>
 
-      {
-        !readOnly && (<div className="card-footer">
-          <form
-            onSubmit={this.handleSubmit}
-            className="card-footer-item"
-          >
-            <div className="field is-grouped fields-comments">
-              <p className="control is-expanded">
-                <input
-                  value={comment}
-                  className="input"
-                  onChange={this.handleChange}
-                  placeholder="Escribe un comentario"
-                />  </p>
-              <p className="control">
-                <button
-                  className="button is-info">
-                  Enviar
+      <div className="card-footer">
+        <form
+          onSubmit={this.handleSubmit}
+          className="card-footer-item"
+        >
+          <div className="field is-grouped fields-comments">
+            <p className="control is-expanded">
+              <input
+                value={comment}
+                className="input"
+                onChange={this.handleChange}
+                disabled={disabled}
+                placeholder={placeholder}
+              />
+            </p>
+            <p className="control">
+              <button
+                disabled={disabled}
+                className="button is-info">
+                Enviar
                 </button>
-              </p>
-            </div>
+            </p>
+          </div>
 
-          </form>
-        </div>)
-      }
+        </form>
+      </div>
     </div>)
   }
 }

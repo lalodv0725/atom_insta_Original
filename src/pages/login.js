@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import firebase from 'firebase'
 import store from '../tree'
+import { toast } from 'react-toastify'
 
 class Login extends Component {
   constructor(props) {
@@ -19,6 +20,7 @@ class Login extends Component {
         let user = firebase.database().ref(`users/${data.user.uid}`)
 
         let userFormat = {
+          id: data.user.uid,
           displayName: data.user.displayName,
           photoURL: data.user.photoURL,
         }
@@ -28,8 +30,6 @@ class Login extends Component {
 
         store.set("user", userFormat)
         store.commit()
-
-      
 
         let {
           history
@@ -42,7 +42,16 @@ class Login extends Component {
         })
       }
     } catch (error) {
-      console.error(error)
+      this.setState({
+        loading: false
+      })
+
+      toast.error(
+        `Error: ${error.message}`,
+        {
+          position: toast.POSITION.TOP_RIGHT
+        }
+      )
     }
   }
 

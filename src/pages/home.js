@@ -47,8 +47,11 @@ class Home extends Component {
 
     return (
       <div>
-        Welcome
-        <Post />
+        <div
+          className="container-new-post"
+        >
+          <Post />
+        </div>
         <div className="columns">
 
           <div

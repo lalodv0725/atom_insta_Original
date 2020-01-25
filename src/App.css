@@ -19,3 +19,10 @@
 .fields-comments {
   width: 100% !important;
 }
+
+.container-new-post {
+  position: fixed;
+  top: 5rem;
+  z-index: 100;
+  margin: 3px;
+}

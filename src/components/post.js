@@ -4,6 +4,7 @@ import firebase from 'firebase'
 import { toast } from 'react-toastify'
 import uuid from 'uuid/v1'
 import LoadingBar from 'react-top-loading-bar'
+import tree from '../tree'
 
 class Post extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Post extends Component {
       errorForm: false,
       progressUpload: 0,
       loading: false,
+      user: tree.get("user"),
       formData: {
         content: '',
         image: ''
@@ -95,7 +97,6 @@ class Post extends Component {
       })
     }, () => {
       task.snapshot.ref.getDownloadURL().then((url) => {
-        console.log('url', url)
         this.handleCreatePost(url)
       })
     })
@@ -103,7 +104,8 @@ class Post extends Component {
 
   handleCreatePost = (url) => {
     let {
-      formData: { content }
+      formData: { content },
+      user
     } = this.state
 
     let posts = firebase.database().ref('posts')
@@ -112,7 +114,7 @@ class Post extends Component {
     newPost.set({
       content,
       photoURL: url,
-      authorId: '3qODBBirJeXb0FZaM6auSPSWJgo2',
+      authorId: user.id,
       createdAt: new Date().toJSON()
     })
     this.setState({
@@ -193,7 +195,7 @@ class Post extends Component {
                 <input
                   className="file-input"
                   type="file"
-                  // accept="image/x-png,image/gif,image/jpeg"
+                  accept="image/x-png,image/gif,image/jpeg"
                   name="image"
                   onChange={this.handleChange}
                   />
