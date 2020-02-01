@@ -27,7 +27,7 @@ class PostCard extends Component {
 
     let authorRef = firebase.database().ref(`users/${post.authorId}`)
 
-    authorRef.once('value', (snapshot) => {
+    authorRef.on('value', (snapshot) => {
       this.setState({
         author: snapshot.val(),
         loading: false
