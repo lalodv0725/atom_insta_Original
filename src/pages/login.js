@@ -19,10 +19,13 @@ class Login extends Component {
 
         let user = firebase.database().ref(`users/${data.user.uid}`)
 
+        console.log("Datos Usuario:", data.user);
+
         let userFormat = {
           id: data.user.uid,
           displayName: data.user.displayName,
           photoURL: data.user.photoURL,
+          email: data.user.email
         }
 
         user.set(userFormat)

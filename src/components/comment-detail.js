@@ -46,7 +46,7 @@ class CommentDetail extends Component {
     return (
       <div className="media">
         <figure className="media-left">
-          <p class="image is-48x48">
+          <p className="image is-48x48">
             <img
               className="is-rounded"
               src={author.photoURL}

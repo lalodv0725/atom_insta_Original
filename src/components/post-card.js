@@ -124,7 +124,7 @@ class PostCard extends Component {
 
             <div className="media-content">
               <p className="title is-4">{author.displayName}</p>
-              <p className="subtitle is-6">@johnsmith</p>
+              <p className="subtitle is-6">{author.email}</p>
             </div>
 
           </div>
