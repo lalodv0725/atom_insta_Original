@@ -30,7 +30,8 @@ class Login extends Component {
 
         store.set("user", userFormat)
         store.commit()
-        this.props.userStateChanged(userFormat)
+
+        this.props.history.push('/home')
 
       } else {
         this.setState({

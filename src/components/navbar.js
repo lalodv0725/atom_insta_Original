@@ -25,7 +25,6 @@ class Navbar extends Component {
             tree.set('user',null)
             tree.commit()
             window.localStorage.clear()
-            this.props.userStateChanged()
             this.props.history.push('/')
           }
       ).catch(
@@ -41,9 +40,8 @@ class Navbar extends Component {
       collapsed
     } = this.state
 
-    let {
-        userLogged
-    }=this.props
+    let userLogged = tree.get('user')
+   
 
     return (<nav className="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">

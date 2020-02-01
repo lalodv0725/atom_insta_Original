@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PostCard from '../components/post-card'
 import firebase from 'firebase'
 import CommentDetail from '../components/comment-detail'
+import {validateUser} from '../validate-user'
 
 class PostDetail extends Component {
   constructor (props) {
@@ -14,6 +15,7 @@ class PostDetail extends Component {
   }
 
   componentDidMount = () => {
+    validateUser()
     this.loadDetail()
     this.loadComments()
   }
