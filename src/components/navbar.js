@@ -1,5 +1,10 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import firebase from 'firebase'
+import tree from '../tree'
+import {withRouter} from 'react-router-dom'
+
+
 
 class Navbar extends Component {
   state = {
@@ -14,17 +19,37 @@ class Navbar extends Component {
     })
   }
 
+  handleLogout = () => {
+      firebase.auth().signOut().then(
+          () => {
+            tree.set('user',null)
+            tree.commit()
+            window.localStorage.clear()
+            this.props.userStateChanged()
+            this.props.history.push('/')
+          }
+      ).catch(
+          (error) => {
+            console.log("Error",error)
+          }
+      )
+  }
+
   render() {
 
     let {
       collapsed
     } = this.state
 
+    let {
+        userLogged
+    }=this.props
+
     return (<nav className="navbar is-dark is-fixed-top" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
         <Link
           className="navbar-item"
-          to="/home"
+          to="/"
         >
           <p className="cursive-font">
             Insta Atom
@@ -46,30 +71,20 @@ class Navbar extends Component {
 
       <div id="navbarBasicExample"
         className={`navbar-menu ${collapsed ? 'is-active' : ''}`}>
-        <div className="navbar-start">
-          {/* <Link to="/" className="navbar-item">
-            Tabla
-            </Link>
-
-          <Link to="/modal" className="navbar-item">
-            Modal
-            </Link>
-
-          <Link to="/tabs" className="navbar-item">
-            Tabs
-            </Link> */}
-
-        </div>
+        <div className="navbar-start"/>
 
         <div className="navbar-end">
-          <div className="navbar-item">
-            <div className="buttons">
-            </div>
-          </div>
+            {
+            userLogged && (<div className="navbar-item">
+            <a onClick={this.handleLogout} className="button is-danger">
+                Salir
+            </a>
+          </div>)
+            }          
         </div>
       </div>
     </nav>)
   }
 }
 
-export default Navbar
+export default withRouter(Navbar)

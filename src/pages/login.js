@@ -30,11 +30,7 @@ class Login extends Component {
 
         store.set("user", userFormat)
         store.commit()
-
-        let {
-          history
-        } = this.props
-        history.push('/home')
+        this.props.userStateChanged(userFormat)
 
       } else {
         this.setState({
@@ -97,9 +93,9 @@ class Login extends Component {
       )
     }
 
-    return (<div className="columns">
+    return (<div className="columns columns-main-login">
       <div className="column is-two-thirds">
-        <img src="/assets/preview.jpg" />
+        <img src="/assets/preview.jpg"  alt=""/>
       </div>
       <div className="column">
         <h1 className="title is-1 has-text-centered cursive-font main-title">

@@ -25,15 +25,16 @@ import Home from './pages/home'
 import PostDetail from './pages/post-detail'
 
 // Setup firebase
+//Initialize Firebase
 let firebaseConfig = {
-  apiKey: "AIzaSyChV8AOnUPkfGj1FFpVjIhnb8jT7byyFAc",
-  authDomain: "atom-insta10.firebaseapp.com",
-  databaseURL: "https://atom-insta10.firebaseio.com",
-  projectId: "atom-insta10",
-  storageBucket: "atom-insta10.appspot.com",
-  messagingSenderId: "207336179354",
-  appId: "1:207336179354:web:90259c37b5755e88ab8123",
-  measurementId: "G-844694ZWG8"
+    apiKey: process.env.REACT_APP_FIREBASE_APIKEY,
+    authDomain: "atom-insta-100.firebaseapp.com",
+    databaseURL: "https://atom-insta-100.firebaseio.com",
+    projectId: "atom-insta-100",
+    storageBucket: "atom-insta-100.appspot.com",
+    messagingSenderId: "713544193086",
+    appId: "1:713544193086:web:a52809a2c1173b402cad6f",
+    measurementId: "G-BGFLEPWTX0"
 }
 firebase.initializeApp(firebaseConfig)
 
@@ -47,13 +48,13 @@ class App extends Component {
         <Router>
           <Layout>
             <Switch>
-              <Route
+              {/* <Route
                 path='/'
                 exact
                 component={Login}
-              />
+              /> */}
               <Route
-                path='/home'
+                path='/'
                 exact
                 component={Home}
               />

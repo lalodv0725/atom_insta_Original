@@ -190,8 +190,8 @@ class Post extends Component {
           </div>
 
           <div className="field">
-            <div class="file">
-              <label class="file-label">
+            <div className="file">
+              <label className="file-label">
                 <input
                   className="file-input"
                   type="file"
@@ -199,9 +199,9 @@ class Post extends Component {
                   name="image"
                   onChange={this.handleChange}
                   />
-                <span class="file-cta">
-                  <span class="file-icon">
-                    <i class="fa fa-upload"></i>
+                <span className="file-cta">
+                  <span className="file-icon">
+                    <i className="fa fa-upload"></i>
                   </span>
                   {
                     formData.image ? (<span>

@@ -49,7 +49,9 @@ class CommentDetail extends Component {
           <p class="image is-48x48">
             <img
               className="is-rounded"
-              src={author.photoURL} />
+              src={author.photoURL}
+              alt=""
+             />
           </p>
         </figure>
         <div className="media-content">

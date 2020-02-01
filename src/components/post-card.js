@@ -117,6 +117,7 @@ class PostCard extends Component {
                 <img
                   className="is-rounded"
                   src={author.photoURL}
+                  alt=""
                 />
               </figure>
             </div>
@@ -140,7 +141,7 @@ class PostCard extends Component {
 
       <div className="card-image">
         <figure className="image is-4by3">
-          <img src={post.photoURL} />
+          <img src={post.photoURL}  alt=""/>
         </figure>
       </div>
 
