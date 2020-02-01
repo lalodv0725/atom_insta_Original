@@ -143,6 +143,13 @@ class PostCard extends Component {
         <figure className="image is-4by3">
           <img src={post.photoURL}  alt=""/>
         </figure>
+        <div className="footer-image is-vertical-center">
+            <p>
+            {
+                post.content
+            }
+            </p>
+        </div>
       </div>
 
       <div className="card-footer">

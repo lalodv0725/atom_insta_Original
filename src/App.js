@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import firebase, { storage } from 'firebase'
+import firebase from 'firebase'
 import {
   BrowserRouter as Router, // Enrutador
   Switch, // navegación entre rutas
